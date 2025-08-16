@@ -171,8 +171,9 @@
       </div>
       <div class="pad-xl">
         <figure class="hero__pic reveal" style="transition-delay:.12s">
-          <a href="assets/fazal.jpg" target="_blank" rel="noopener">
-            <img src="assets/fazal.jpg" alt="Portrait of Fazal Raheem" />
+          <!-- ✅ FIXED: use exact filename from repo -->
+          <a href="assets/fazl.jpg" target="_blank" rel="noopener">
+            <img src="assets/fazl.jpg" alt="Portrait of Fazal Raheem" />
           </a>
         </figure>
         <div class="stats">
@@ -367,7 +368,6 @@
           </div>
         </div>
 
-        <!-- UPDATED QUICK CONTACT -->
         <div class="card pad-2xl reveal">
           <h2>Quick Contact</h2>
           <div class="muted">Email: <a href="mailto:fazalraheem508@gmail.com">fazalraheem508@gmail.com</a></div>
@@ -388,7 +388,6 @@
           <h2>Let’s work <span class="accent">together</span></h2>
           <p class="lead muted">Tell me about your idea — I usually reply within 24 hours.</p>
           <div class="card pad-xl">
-            <!-- NOTE: add name/email/message fields that EmailJS will map -->
             <form class="form" id="contactForm">
               <input class="shadow-ring" required placeholder="Your name" name="from_name" />
               <input class="shadow-ring" required type="email" placeholder="Your email" name="reply_to" />
@@ -452,10 +451,9 @@
   }
   </script>
 
-  <!-- EmailJS CDN -->
+  <!-- EmailJS CDN (optional) -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
-  <!-- ============== SCRIPTS ============== -->
   <script>
     // Theme toggle
     const themeBtn = document.getElementById('themeBtn');
@@ -520,38 +518,22 @@
       });
     });
 
-    // Testimonials slider
-    const slides = document.querySelector('.slides');
-    let idx = 0; function go(dir){ idx = (idx + dir + 3) % 3; slides.style.transform = `translateX(-${idx*100}%)`; }
-    document.getElementById('prevBtn').addEventListener('click', ()=>go(-1));
-    document.getElementById('nextBtn').addEventListener('click', ()=>go(+1));
-    let tmr = setInterval(()=>go(1), 6000); [slides, prevBtn, nextBtn].forEach(el=> el.addEventListener('pointerdown', ()=> clearInterval(tmr)));
-
-    // --------- EmailJS setup (replace with your keys) ----------
-    // 1) Sign up at https://www.emailjs.com/
-    // 2) Create a service + email template with variables: from_name, reply_to, message
-    // 3) Replace the placeholders below:
+    // (Optional) EmailJS setup — leave as 'YOUR_*' if not using
     const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
     const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
     const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+    if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") emailjs.init(EMAILJS_PUBLIC_KEY);
 
-    if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-      emailjs.init(EMAILJS_PUBLIC_KEY);
-    }
-
-    // Contact form: EmailJS with graceful fallback
     const form = document.getElementById('contactForm');
     const msg = document.getElementById('formMsg');
-
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
 
-      // If EmailJS keys are set, try to send via EmailJS
       if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
         msg.textContent = 'Sending…';
         try {
-          const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
           msg.textContent = '✅ Message sent! I will reply soon.';
           form.reset();
           return;
@@ -561,11 +543,10 @@
         }
       }
 
-      // Fallback to mailto if EmailJS not configured or failed
+      // Fallback to mailto
       const name = encodeURIComponent(data.from_name || '');
       const email = encodeURIComponent(data.reply_to || '');
-      const body  = encodeURIComponent((data.message || ''))
-                   .replace(/%0A/g, '%0D%0A');
+      const body  = encodeURIComponent((data.message || '')).replace(/%0A/g, '%0D%0A');
       const subject = `Inquiry from ${decodeURIComponent(name) || 'Portfolio'}`;
       const mailto = `mailto:fazalraheem508@gmail.com?subject=${encodeURIComponent(subject)}&body=Name:%20${name}%0D%0AEmail:%20${email}%0D%0A%0D%0A${body}`;
       window.location.href = mailto;
