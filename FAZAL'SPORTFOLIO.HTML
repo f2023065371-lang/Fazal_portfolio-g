@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <title>Fazal Raheem — Portfolio</title>
+  <meta name="description" content="Fazal Raheem — UMT BS Software Engineering student. Video Editing (Premiere Pro, CapCut), YouTube Animation, Flutter basics, HTML/CSS/Java, and strong communication." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- RESET ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: var(--bg); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    :root{
+      --bg:#060a1a; --bg-soft:#0a122a; --text:#e6ecff; --muted:#9db2ff;
+      --primary:#22d3ee; --primary-600:#06b6d4; --accent:#a78bfa;
+      --ok:#34d399; --warn:#fbbf24; --danger:#ef4444;
+      --ring:0 0 0 3px rgba(34,211,238,.25);
+      --shadow:0 10px 40px rgba(0,0,0,.45);
+      --radius:16px; --grid-gap:clamp(16px,2.5vw,28px);
+    }
+    .light{
+      --bg:#f7f8fc; --bg-soft:#ffffff; --text:#0b1020; --muted:#53607a;
+      --primary:#0284c7; --primary-600:#0369a1; --accent:#6d28d9;
+      --shadow:0 12px 30px rgba(2,6,23,.08); --ring:0 0 0 3px rgba(2,132,199,.2);
+    }
+
+    /* ---------- UTILITIES ---------- */
+    .container{ width:min(1200px,92vw); margin-inline:auto; }
+    .grid{ display:grid; gap:var(--grid-gap); }
+    .grid-2{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    @media (max-width: 900px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+    .card{ background:var(--bg-soft); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.08); }
+    .pad-xl{ padding:clamp(18px,2.5vw,28px); }
+    .pad-2xl{ padding:clamp(24px,4vw,40px); }
+    .muted{ color:var(--muted); }
+    .tag{ display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:12px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03)); }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 18px; font-weight:700; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:linear-gradient(180deg,rgba(34,211,238,.18),rgba(34,211,238,.08)); box-shadow:var(--shadow); transition:transform .15s ease, background .2s ease; cursor:pointer; }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn.primary{ background:linear-gradient(180deg,var(--primary),var(--primary-600)); color:#fff; border-color:transparent; }
+    .btn.ghost{ background:transparent; }
+    .btn.small{ padding:8px 12px; font-weight:700; }
+
+    .section{ padding:clamp(56px,8vw,96px) 0; position:relative; }
+    .section h2{ margin:0 0 12px; font-size:clamp(28px,3.5vw,42px); letter-spacing:.3px; }
+    .section p.lead{ margin:8px 0 28px; font-size:clamp(16px,1.6vw,18px); }
+
+    .accent{ background:linear-gradient(90deg,var(--primary),var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .shadow-ring:focus{ outline:none; box-shadow:var(--ring); }
+
+    /* ---------- HEADER ---------- */
+    header{ position:sticky; top:0; z-index:40; backdrop-filter:blur(10px); background:rgba(6,10,26,.7); border-bottom:1px solid rgba(255,255,255,.08); }
+    .light header{ background:rgba(247,248,252,.75); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px; }
+    .brand .logo{ display:grid; place-items:center; width:36px; height:36px; border-radius:10px; background: radial-gradient(120% 120% at 0% 0%, var(--accent) 0%, var(--primary) 40%, transparent 70%), linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.15); }
+    nav ul{ list-style:none; display:flex; gap:20px; padding:0; margin:0; }
+    nav a{ padding:10px 12px; border-radius:10px; color:var(--muted); font-weight:700; }
+    nav a.active, nav a:hover{ color:var(--text); background:rgba(255,255,255,.08); }
+    .nav-right{ display:flex; align-items:center; gap:10px; }
+
+    /* ---------- HERO ---------- */
+    .hero{ padding:clamp(70px,12vw,140px) 0 clamp(40px,6vw,80px); position:relative; overflow:hidden; }
+    .hero .bg-blur{ position:absolute; inset:auto -20% -30% -20%; height:55vh; background: radial-gradient(40% 60% at 50% 0%, rgba(34,211,238,.35), transparent 60%), radial-gradient(45% 65% at 80% 20%, rgba(167,139,250,.25), transparent 60%); filter:blur(40px); z-index:-1; }
+    .hero h1{ margin:0 0 10px; font-size:clamp(34px,5.6vw,72px); line-height:1.05; letter-spacing:.2px; }
+    .hero .sub{ font-size:clamp(16px,1.5vw,20px); color:var(--muted); max-width:70ch; }
+    .hero .cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+    .hero__pic{ border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow); aspect-ratio:4/5; }
+    .hero__pic img{ width:100%; height:100%; object-fit:cover; }
+
+    /* ---------- ABOUT ---------- */
+    .stats{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--grid-gap); margin-top:18px; }
+    .stat{ padding:18px; text-align:center; border-radius:14px; border:1px solid rgba(255,255,255,.1); background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03)); }
+    .stat .num{ font-size:clamp(22px,3.4vw,36px); font-weight:900; }
+    .stat .lbl{ font-size:12px; color:var(--muted); }
+    @media (max-width: 900px){ .stats{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    /* ---------- SKILLS ---------- */
+    .skillbar{ height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; }
+    .skillbar > span{ display:block; height:100%; background:linear-gradient(90deg,var(--primary),var(--accent)); width:0%; transition:width 1s ease; }
+
+    /* ---------- PROJECTS ---------- */
+    .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .filters .btn{ padding:8px 12px; }
+    .projects{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--grid-gap); }
+    @media (max-width:1000px){ .projects{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:680px){ .projects{ grid-template-columns:1fr; } }
+    .proj{ position:relative; overflow:hidden; border-radius:16px; border:1px solid rgba(255,255,255,.1); }
+    .proj img{ aspect-ratio:16/10; object-fit:cover; transition:transform .5s ease; }
+    .proj:hover img{ transform:scale(1.06); }
+    .proj .meta{ position:absolute; inset:auto 0 0 0; padding:14px 16px; background:linear-gradient(180deg, transparent, rgba(0,0,0,.6)); }
+
+    /* ---------- SERVICES ---------- */
+    .service{ display:flex; flex-direction:column; gap:10px; }
+    .price{ font-weight:900; background:linear-gradient(90deg,var(--ok),var(--primary)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+    /* ---------- TESTIMONIALS ---------- */
+    .slider{ position:relative; overflow:hidden; border-radius:16px; border:1px solid rgba(255,255,255,.1); }
+    .slides{ display:flex; transition:transform .4s ease; }
+    .tcard{ min-width:100%; padding:20px; }
+
+    /* ---------- CONTACT ---------- */
+    .form{ display:grid; gap:14px; }
+    .form input, .form textarea{ width:100%; padding:12px 14px; border-radius:12px; background:var(--bg-soft); border:1px solid rgba(255,255,255,.14); color:var(--text); }
+    .form textarea{ min-height:120px; resize:vertical; }
+
+    /* ---------- FOOTER ---------- */
+    footer{ padding:20px 0 60px; color:var(--muted); font-size:14px; }
+    .foot-grid{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+
+    /* ---------- REVEAL ANIM ---------- */
+    .reveal{ opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.show{ opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+  <a class="shadow-ring" href="#main" style="position:absolute;left:-999px;top:-999px">Skip to content</a>
+
+  <!-- ============== HEADER ============== -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">⭐</span>
+        <span>Fazal <span class="accent">Raheem</span></span>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <button id="themeBtn" class="btn small ghost" aria-label="Toggle theme">🌙</button>
+        <a href="#contact" class="btn small primary shadow-ring">Hire Me</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============== HERO ============== -->
+  <section class="hero" id="home">
+    <div class="bg-blur"></div>
+    <div class="container grid grid-2">
+      <div class="pad-xl">
+        <span class="tag">UMT • BS Software Engineering</span>
+        <h1 class="reveal">I’m <span class="accent">Fazal Raheem</span> — video editor & aspiring developer.</h1>
+        <p class="sub reveal" style="transition-delay:.08s">I create engaging videos and animations, and I’m building skills in Flutter and web development. I value clean visuals, crisp storytelling, and strong communication.</p>
+        <div class="cta reveal" style="transition-delay:.16s">
+          <a class="btn primary" href="#projects">See my work</a>
+          <a class="btn ghost" href="#contact">Let’s collaborate</a>
+        </div>
+        <div class="reveal" style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;transition-delay:.22s">
+          <a class="tag" href="https://www.adobe.com/products/premiere.html" target="_blank" rel="noopener">Premiere Pro</a>
+          <a class="tag" href="https://www.capcut.com/" target="_blank" rel="noopener">CapCut</a>
+          <span class="tag">YouTube Animation</span>
+          <span class="tag">Flutter Basics</span>
+          <span class="tag">HTML • CSS • Java</span>
+          <span class="tag">Communication</span>
+        </div>
+      </div>
+      <div class="pad-xl">
+        <figure class="hero__pic reveal" style="transition-delay:.12s">
+          <a href="assets/fazal.jpg" target="_blank" rel="noopener">
+            <img src="assets/fazal.jpg" alt="Portrait of Fazal Raheem" />
+          </a>
+        </figure>
+        <div class="stats">
+          <div class="stat"><div class="num" data-count="20">0</div><div class="lbl">Edited Videos</div></div>
+          <div class="stat"><div class="num" data-count="8">0</div><div class="lbl">YT Animations</div></div>
+          <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Web Demos</div></div>
+          <div class="stat"><div class="num" data-count="3">0</div><div class="lbl">Years Learning</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- ============== ABOUT ============== -->
+    <section class="section" id="about">
+      <div class="container grid grid-2">
+        <div class="card pad-2xl reveal">
+          <h2>About <span class="accent">Me</span></h2>
+          <p class="lead">Currently studying <strong>BS Software Engineering</strong> at <strong>UMT</strong>. I blend <em>creative editing</em> with <em>technical development</em> to deliver content that looks great and works smoothly.</p>
+          <ul style="margin:8px 0 0; padding:0 0 0 18px;">
+            <li>Video Editing: Premiere Pro, CapCut</li>
+            <li>YouTube Animations & Intros</li>
+            <li>Flutter basics for rapid app prototypes</li>
+            <li>Web foundation: HTML, CSS, Java</li>
+            <li>Strong communication & client handling</li>
+          </ul>
+          <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+            <span class="tag">Clean Visuals</span>
+            <span class="tag">Quick Turnaround</span>
+            <span class="tag">Reliable</span>
+          </div>
+        </div>
+        <div class="grid reveal" style="gap: var(--grid-gap);">
+          <div class="card pad-xl">
+            <h3 style="margin:0 0 6px">What I’m doing now</h3>
+            <p class="muted">Editing shorts & vlogs, and practicing Flutter UI screens.</p>
+          </div>
+          <div class="card pad-xl">
+            <h3 style="margin:0 0 6px">What I’m exploring</h3>
+            <p class="muted">Motion graphics packs for YouTube, and better color grading workflows.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SKILLS ============== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="grid grid-3">
+          <div class="card pad-2xl reveal">
+            <h2>Creative <span class="accent">Skills</span></h2>
+            <div style="display:grid; gap:12px; margin-top:6px;">
+              <div><div style="display:flex; justify-content:space-between;"><strong>Premiere Pro</strong><span class="muted">Advanced</span></div><div class="skillbar"><span style="width:85%"></span></div></div>
+              <div><div style="display:flex; justify-content:space-between;"><strong>CapCut</strong><span class="muted">Advanced</span></div><div class="skillbar"><span style="width:88%"></span></div></div>
+              <div><div style="display:flex; justify-content:space-between;"><strong>YouTube Animation</strong><span class="muted">Good</span></div><div class="skillbar"><span style="width:80%"></span></div></div>
+            </div>
+          </div>
+          <div class="card pad-2xl reveal">
+            <h2>Tech <span class="accent">Stack</span></h2>
+            <div style="display:grid; gap:12px; margin-top:6px;">
+              <div><div style="display:flex; justify-content:space-between;"><strong>HTML</strong><span class="muted">Strong</span></div><div class="skillbar"><span style="width:90%"></span></div></div>
+              <div><div style="display:flex; justify-content:space-between;"><strong>CSS</strong><span class="muted">Good</span></div><div class="skillbar"><span style="width:80%"></span></div></div>
+              <div><div style="display:flex; justify-content:space-between;"><strong>Java</strong><span class="muted">Basics</span></div><div class="skillbar"><span style="width:55%"></span></div></div>
+              <div><div style="display:flex; justify-content:space-between;"><strong>Flutter</strong><span class="muted">Basics</span></div><div class="skillbar"><span style="width:60%"></span></div></div>
+            </div>
+          </div>
+          <div class="card pad-2xl reveal">
+            <h2>Soft <span class="accent">Skills</span></h2>
+            <ul style="margin:6px 0 0; padding:0 0 0 18px;">
+              <li>Communication — clear & confident</li>
+              <li>Teamwork & time management</li>
+              <li>Client handling & feedback</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PROJECTS ============== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="grid grid-2" style="align-items:end;">
+          <div>
+            <h2 class="reveal">Projects</h2>
+            <p class="lead muted reveal">Filter and explore my work.</p>
+          </div>
+          <div class="filters reveal" role="tablist" aria-label="Project filters">
+            <button class="btn small ghost" data-filter="all" role="tab" aria-selected="true">All</button>
+            <button class="btn small ghost" data-filter="video" role="tab">Video</button>
+            <button class="btn small ghost" data-filter="animation" role="tab">Animation</button>
+            <button class="btn small ghost" data-filter="web" role="tab">Web</button>
+            <button class="btn small ghost" data-filter="flutter" role="tab">Flutter</button>
+          </div>
+        </div>
+
+        <div class="projects reveal" id="projectGrid">
+          <!-- CARD 1 -->
+          <article class="proj card" data-tags="video">
+            <img src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=1200&auto=format&fit=crop" alt="Product ad" />
+            <div class="meta">
+              <h3 style="margin:0;">Product Spotlight</h3>
+              <p class="muted" style="margin:4px 0 8px;">Short ad with motion graphics & color grade.</p>
+              <div style="display:flex; gap:8px;">
+                <span class="tag">Premiere Pro</span>
+                <span class="tag">Motion</span>
+              </div>
+              <div style="margin-top:10px; display:flex; gap:10px;">
+                <a class="btn small" data-open="p1" href="https://wa.me/923021421472" target="_blank" rel="noopener">Details</a>
+                <a class="btn small ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">Watch</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 2 -->
+          <article class="proj card" data-tags="animation">
+            <img src="https://images.unsplash.com/photo-1620912189865-1f61fd2a9b6a?q=80&w=1200&auto=format&fit=crop" alt="YouTube intro" />
+            <div class="meta">
+              <h3 style="margin:0;">YouTube Intro Pack</h3>
+              <p class="muted" style="margin:4px 0 8px;">Animated logo reveal & lower-thirds.</p>
+              <div style="display:flex; gap:8px;">
+                <span class="tag">Animation</span>
+                <span class="tag">SFX</span>
+              </div>
+              <div style="margin-top:10px; display:flex; gap:10px;">
+                <a class="btn small" data-open="p2" href="https://wa.me/923021421472" target="_blank" rel="noopener">Details</a>
+                <a class="btn small ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">Preview</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 3 -->
+          <article class="proj card" data-tags="web">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Portfolio site" />
+            <div class="meta">
+              <h3 style="margin:0;">Personal Portfolio</h3>
+              <p class="muted" style="margin:4px 0 8px;">Responsive layout with modern sections.</p>
+              <div style="display:flex; gap:8px;">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+              </div>
+              <div style="margin-top:10px; display:flex; gap:10px;">
+                <a class="btn small" data-open="p3" href="https://wa.me/923021421472" target="_blank" rel="noopener">Details</a>
+                <a class="btn small ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">Live</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 4 -->
+          <article class="proj card" data-tags="flutter">
+            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop" alt="Flutter UI" />
+            <div class="meta">
+              <h3 style="margin:0;">Flutter UI Demo</h3>
+              <p class="muted" style="margin:4px 0 8px;">Basic screens & navigation.</p>
+              <div style="display:flex; gap:8px;">
+                <span class="tag">Flutter</span>
+                <span class="tag">Dart</span>
+              </div>
+              <div style="margin-top:10px; display:flex; gap:10px;">
+                <a class="btn small" data-open="p4" href="https://wa.me/923021421472" target="_blank" rel="noopener">Details</a>
+                <a class="btn small ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SERVICES ============== -->
+    <section class="section" id="services">
+      <div class="container grid grid-3">
+        <div class="card pad-2xl reveal service">
+          <h2>Services</h2>
+          <p class="muted" style="margin-top:6px">Let’s make your content look premium.</p>
+          <div style="display:grid; gap:12px; margin-top:10px;">
+            <div class="card pad-xl"><strong>Video Editing</strong><br><span class="muted">YouTube • Reels • Ads</span><div class="price">Starting $50</div></div>
+            <div class="card pad-xl"><strong>YouTube Animation</strong><br><span class="muted">Intro • Outro • Lower-thirds</span><div class="price">Starting $70</div></div>
+            <div class="card pad-xl"><strong>Portfolio Website</strong><br><span class="muted">1-page responsive site</span><div class="price">Starting $120</div></div>
+          </div>
+        </div>
+        <div class="card pad-2xl reveal" id="testimonials">
+          <h2>Testimonials</h2>
+          <div class="slider" id="slider">
+            <div class="slides">
+              <blockquote class="tcard"><p>‘Fazal edited our travel vlog beautifully — pacing & color were on point.’</p><footer class="muted">— Client A</footer></blockquote>
+              <blockquote class="tcard"><p>‘The intro animation boosted our channel’s brand instantly.’</p><footer class="muted">— Client B</footer></blockquote>
+              <blockquote class="tcard"><p>‘Professional communication and timely delivery. Recommended!’</p><footer class="muted">— Client C</footer></blockquote>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:12px;">
+            <button class="btn small ghost" id="prevBtn">← Prev</button>
+            <button class="btn small ghost" id="nextBtn">Next →</button>
+          </div>
+        </div>
+
+        <!-- UPDATED QUICK CONTACT -->
+        <div class="card pad-2xl reveal">
+          <h2>Quick Contact</h2>
+          <div class="muted">Email: <a href="mailto:fazalraheem508@gmail.com">fazalraheem508@gmail.com</a></div>
+          <div class="muted">Phone: <a href="tel:+923021421472">+92 302 1421472</a></div>
+          <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+            <a class="btn small" href="#contact">Send a message</a>
+            <a class="btn small ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn small ghost" href="mailto:fazalraheem508@gmail.com">Email Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CONTACT ============== -->
+    <section class="section" id="contact">
+      <div class="container grid grid-2">
+        <div class="reveal">
+          <h2>Let’s work <span class="accent">together</span></h2>
+          <p class="lead muted">Tell me about your idea — I usually reply within 24 hours.</p>
+          <div class="card pad-xl">
+            <!-- NOTE: add name/email/message fields that EmailJS will map -->
+            <form class="form" id="contactForm">
+              <input class="shadow-ring" required placeholder="Your name" name="from_name" />
+              <input class="shadow-ring" required type="email" placeholder="Your email" name="reply_to" />
+              <textarea class="shadow-ring" required placeholder="Project details…" name="message"></textarea>
+              <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <button class="btn primary" type="submit">Send message</button>
+                <a class="btn ghost" href="mailto:fazalraheem508@gmail.com">📧 Email Me</a>
+                <a class="btn ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">💬 WhatsApp</a>
+                <span class="muted" id="formMsg" aria-live="polite"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="reveal card pad-xl">
+          <h3 style="margin:0 0 6px">Why me?</h3>
+          <ul class="muted" style="margin:6px 0 0; padding-left:18px;">
+            <li>Clean edits & sharp visuals</li>
+            <li>Clear communication</li>
+            <li>On-time delivery</li>
+          </ul>
+          <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+            <a class="btn small" href="mailto:fazalraheem508@gmail.com">✉️ Email</a>
+            <a class="btn small ghost" href="tel:+923021421472">📞 Call</a>
+            <a class="btn small ghost" href="https://wa.me/923021421472" target="_blank" rel="noopener">💬 WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============== FOOTER ============== -->
+  <footer>
+    <div class="container foot-grid">
+      <div>© <span id="year"></span> Fazal Raheem. All rights reserved.</div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a class="tag" href="#home">Back to top ↑</a>
+        <button class="btn small ghost" id="printBtn">🖨️ Print</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============== MODAL (Project details) ============== -->
+  <dialog id="modal" class="card pad-2xl" style="max-width:900px;width:min(92vw,900px);background:var(--bg-soft);color:var(--text);border:1px solid rgba(255,255,255,.12);">
+    <form method="dialog" style="display:flex; justify-content:flex-end; margin:-12px -6px 0 0;">
+      <button class="btn small ghost" value="cancel" aria-label="Close">✕</button>
+    </form>
+    <div id="modalBody"></div>
+  </dialog>
+
+  <!-- ============== STRUCTURED DATA ============== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Fazal Raheem",
+    "jobTitle":"Student & Video Editor",
+    "affiliation":{"@type":"CollegeOrUniversity","name":"UMT"},
+    "email":"mailto:fazalraheem508@gmail.com",
+    "telephone":"+92-302-1421472",
+    "sameAs":["https://wa.me/923021421472"]
+  }
+  </script>
+
+  <!-- EmailJS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <!-- ============== SCRIPTS ============== -->
+  <script>
+    // Theme toggle
+    const themeBtn = document.getElementById('themeBtn');
+    function setTheme(mode){
+      if(mode==='light'){ document.body.classList.add('light'); themeBtn.textContent='🌙'; }
+      else { document.body.classList.remove('light'); themeBtn.textContent='🌞'; }
+      localStorage.setItem('theme', mode);
+    }
+    setTheme(localStorage.getItem('theme') || 'dark');
+    themeBtn.addEventListener('click', ()=>{
+      const next = document.body.classList.contains('light') ? 'dark' : 'light';
+      setTheme(next);
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver(entries=>{
+      for(const e of entries) if(e.isIntersecting) e.target.classList.add('show');
+    }, {threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Counters
+    const counters = document.querySelectorAll('.stat .num');
+    const cObs = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target; const target = +el.dataset.count; let cur = 0;
+          const step = Math.max(1, Math.round(target/60));
+          const t = setInterval(()=>{ cur += step; if(cur >= target){ cur = target; clearInterval(t);} el.textContent = cur; }, 16);
+          cObs.unobserve(el);
+        }
+      });
+    }, {threshold:0.6});
+    counters.forEach(el=>cObs.observe(el));
+
+    // Project filters
+    const grid = document.getElementById('projectGrid');
+    const filterBtns = document.querySelectorAll('.filters .btn');
+    filterBtns.forEach(btn=>btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.setAttribute('aria-selected','false'));
+      btn.setAttribute('aria-selected','true');
+      const tag = btn.dataset.filter;
+      [...grid.children].forEach(card=>{
+        card.style.display = (tag==='all' || card.dataset.tags.includes(tag)) ? '' : 'none';
+      });
+    }));
+
+    // Modal content
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+    const details = {
+      p1:{title:'Product Spotlight', body:'Short ad cut with clean text motions and LUT grade.'},
+      p2:{title:'YouTube Intro Pack', body:'Logo reveal + lower thirds + subscribe bell.'},
+      p3:{title:'Personal Portfolio', body:'Responsive sections + contact form.'},
+      p4:{title:'Flutter UI Demo', body:'Navigation, theming, and simple state.'}
+    };
+    document.querySelectorAll('[data-open]').forEach(btn=>{
+      btn.addEventListener('click', (ev)=>{
+        ev.preventDefault();
+        const d = details[btn.dataset.open] || {title:'Project', body:'Details coming soon.'};
+        modalBody.innerHTML = `<h3 style="margin-top:0">${d.title}</h3><p>${d.body}</p>`;
+        modal.showModal();
+      });
+    });
+
+    // Testimonials slider
+    const slides = document.querySelector('.slides');
+    let idx = 0; function go(dir){ idx = (idx + dir + 3) % 3; slides.style.transform = `translateX(-${idx*100}%)`; }
+    document.getElementById('prevBtn').addEventListener('click', ()=>go(-1));
+    document.getElementById('nextBtn').addEventListener('click', ()=>go(+1));
+    let tmr = setInterval(()=>go(1), 6000); [slides, prevBtn, nextBtn].forEach(el=> el.addEventListener('pointerdown', ()=> clearInterval(tmr)));
+
+    // --------- EmailJS setup (replace with your keys) ----------
+    // 1) Sign up at https://www.emailjs.com/
+    // 2) Create a service + email template with variables: from_name, reply_to, message
+    // 3) Replace the placeholders below:
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+    if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+
+    // Contact form: EmailJS with graceful fallback
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // If EmailJS keys are set, try to send via EmailJS
+      if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        msg.textContent = 'Sending…';
+        try {
+          const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+          msg.textContent = '✅ Message sent! I will reply soon.';
+          form.reset();
+          return;
+        } catch (err) {
+          console.error(err);
+          msg.textContent = '⚠️ Email service failed. Opening your mail app…';
+        }
+      }
+
+      // Fallback to mailto if EmailJS not configured or failed
+      const name = encodeURIComponent(data.from_name || '');
+      const email = encodeURIComponent(data.reply_to || '');
+      const body  = encodeURIComponent((data.message || ''))
+                   .replace(/%0A/g, '%0D%0A');
+      const subject = `Inquiry from ${decodeURIComponent(name) || 'Portfolio'}`;
+      const mailto = `mailto:fazalraheem508@gmail.com?subject=${encodeURIComponent(subject)}&body=Name:%20${name}%0D%0AEmail:%20${email}%0D%0A%0D%0A${body}`;
+      window.location.href = mailto;
+      msg.textContent = 'Opening mail app…';
+    });
+
+    // Year & Print
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('printBtn').addEventListener('click', ()=> window.print());
+
+    // Simple scroll spy
+    const sections = [...document.querySelectorAll('main section, .hero')];
+    const navLinks = [...document.querySelectorAll('nav a')];
+    const spy = new IntersectionObserver(entries=>{
+      entries.forEach(({isIntersecting,target})=>{
+        if(isIntersecting){
+          const id = target.getAttribute('id');
+          navLinks.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+        }
+      });
+    }, {threshold:.5});
+    sections.forEach(s=> spy.observe(s));
+  </script>
+</body>
+</html>
